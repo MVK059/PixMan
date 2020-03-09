@@ -63,8 +63,8 @@ dependencies {
     // logger
     implementation "com.jakewharton.timber:timber:$timber_version"
 
-    // Permission
-    implementation "com.karumi:dexter:$permission_version"
+    // Camera
+    implementation "com.mindorks:paracamera:$camera_version"
 
     // Local Unit tests
     testImplementation "junit:junit:$junit_version"

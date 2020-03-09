@@ -1,11 +1,19 @@
 package com.mvk.pixman.ui.addimage
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.mvk.pixman.BR
 import com.mvk.pixman.R
 import com.mvk.pixman.databinding.ActivityAddImageBinding
 import com.mvk.pixman.di.component.ActivityComponent
 import com.mvk.pixman.ui.base.BaseActivity
+import com.mvk.pixman.utils.common.Constants
+import com.mvk.pixman.utils.display.Toaster
+import com.mvk.pixman.utils.log.Logger
+import java.io.FileNotFoundException
 
 class AddImageActivity : BaseActivity<ActivityAddImageBinding, ImageViewModel>() {
 
@@ -36,5 +44,40 @@ class AddImageActivity : BaseActivity<ActivityAddImageBinding, ImageViewModel>()
      * Setup view for the activity
      */
     override fun setupView(savedInstanceState: Bundle?) {
+
+    }
+
+    override fun setupObservers() {
+        super.setupObservers()
+
+        viewModel.addImageClick.observe(this, Observer {
+            Intent(Intent.ACTION_PICK)
+                .apply { type = "image/*" }
+                .run { startActivityForResult(this, Constants.RESULT_GALLERY_IMAGE) }
+        })
+
+        viewModel.selectImage.observe(this, Observer {
+            Toaster.show(this, "Success")
+        })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when(requestCode) {
+                Constants.RESULT_GALLERY_IMAGE -> {
+                    try {
+                        data?.data?.let {
+                            contentResolver?.openInputStream(it)?.run {
+                                viewModel.onGalleryImageSelected(this)
+                            }
+                        } ?: showMessage(R.string.add_image_try_again)
+                    } catch (e: FileNotFoundException) {
+                        Logger.e(Constants.ADD_IMAGE_ACTIVITY_TAG, e.printStackTrace().toString())
+                        showMessage(R.string.add_image_try_again)
+                    }
+                }
+            }
+        }
     }
 }

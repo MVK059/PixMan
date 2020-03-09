@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="addVM"
             type="com.mvk.pixman.ui.addimage.ImageViewModel" />
@@ -14,14 +15,30 @@
         android:layout_height="match_parent"
         tools:context=".ui.addimage.AddImageActivity">
 
-        <TextView
+        <ImageView
+            android:id="@+id/addImageOpenIV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
+            android:layout_marginBottom="30dp"
+            android:onClick="@{addVM.onAddClick}"
+            android:contentDescription="@string/add_image_cont_desc"
+            android:src="@drawable/ic_add_circle_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/addImageOpenTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/add_image_open_text"
+            android:textColor="@color/grey"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addImageOpenIV" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
