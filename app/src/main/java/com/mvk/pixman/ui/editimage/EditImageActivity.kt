@@ -47,6 +47,10 @@ class EditImageActivity : BaseActivity<ActivityEditImageBinding, EditImageViewMo
         viewModel.permissionCheck.observe(this, Observer {
             viewModel.checkPermission(this)
         })
+
+        viewModel.finishOperation.observe(this, Observer {
+            finish()
+        })
     }
 
     private fun setupImage() {

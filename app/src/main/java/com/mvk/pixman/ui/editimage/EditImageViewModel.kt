@@ -34,6 +34,7 @@ class EditImageViewModel : BaseViewModel() {
     lateinit var mainImageView: ImageView
     lateinit var imageViewLayout: ConstraintLayout
     val permissionCheck = MutableLiveData<Event<Boolean>>()
+    val finishOperation = MutableLiveData<Event<Boolean>>()
 
     override fun onCreate() {
 
@@ -124,6 +125,7 @@ class EditImageViewModel : BaseViewModel() {
         fileOutputStream.flush()
         fileOutputStream.close()
         Toaster.show(mainImageView.context, "File saved successfully to $directory")
+        finishOperation.postValue(Event(true))
     }
 
     private fun getBitmapFromView(view: View): Bitmap? {
