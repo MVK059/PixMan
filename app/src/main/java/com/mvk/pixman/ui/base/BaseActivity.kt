@@ -34,6 +34,7 @@ abstract class BaseActivity<T : ViewDataBinding, VM : BaseViewModel> : AppCompat
         super.onCreate(savedInstanceState)
         viewModel.onCreate()
         setupDataBinding()
+//        setContentView(provideLayoutId())
         setupObservers()
         setupView(savedInstanceState)
     }

@@ -13,8 +13,8 @@ import com.mvk.pixman.utils.common.Constants
 import com.mvk.pixman.utils.log.Logger
 import java.io.FileNotFoundException
 
-class AddImageActivity : BaseActivity<ActivityAddImageBinding, ImageViewModel>() {
 
+class AddImageActivity : BaseActivity<ActivityAddImageBinding, AddImageViewModel>() {
     /**
      * Set data binding for the activity
      *
@@ -57,7 +57,8 @@ class AddImageActivity : BaseActivity<ActivityAddImageBinding, ImageViewModel>()
         viewModel.launchEditImage.observe(this, Observer {
             it.getIfNotHandled()?.run {
                 (this@AddImageActivity as BaseActivity<*, *>)
-                    .navigationController.launchEditImageActivity()
+                    .navigationController.launchEditImageActivity(viewModel.imageURI)
+
             }
         })
     }
@@ -70,7 +71,7 @@ class AddImageActivity : BaseActivity<ActivityAddImageBinding, ImageViewModel>()
                     try {
                         data?.data?.let {
                             contentResolver?.openInputStream(it)?.run {
-                                viewModel.onGalleryImageSelected(this)
+                                viewModel.onGalleryImageSelected(it)
                             }
                         } ?: showMessage(R.string.add_image_try_again)
                     } catch (e: FileNotFoundException) {
