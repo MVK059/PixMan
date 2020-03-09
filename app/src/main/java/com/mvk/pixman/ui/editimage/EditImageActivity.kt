@@ -2,6 +2,7 @@ package com.mvk.pixman.ui.editimage
 
 import android.net.Uri
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.mvk.pixman.BR
 import com.mvk.pixman.R
 import com.mvk.pixman.databinding.ActivityEditImageBinding
@@ -42,11 +43,10 @@ class EditImageActivity : BaseActivity<ActivityEditImageBinding, EditImageViewMo
 
     override fun setupObservers() {
         super.setupObservers()
-    }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        // TODO Show popup
+        viewModel.permissionCheck.observe(this, Observer {
+            viewModel.checkPermission(this)
+        })
     }
 
     private fun setupImage() {

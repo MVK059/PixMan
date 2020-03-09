@@ -66,6 +66,9 @@ dependencies {
     // Camera
     implementation "com.mindorks:paracamera:$camera_version"
 
+    // Permission
+    implementation "com.karumi:dexter:$permission_version"
+
     // Local Unit tests
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.mockito:mockito-core:$mockito_version"

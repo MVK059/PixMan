@@ -55,6 +55,9 @@ ext {
     // Camera
     camera_version = '0.2.2'
 
+    // Permission
+    permission_version = '6.0.2'
+
     // Tests
     junit_version = '4.12'
     mockito_version = '2.19.0'
