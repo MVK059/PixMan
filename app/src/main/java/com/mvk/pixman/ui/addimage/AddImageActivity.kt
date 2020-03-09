@@ -3,7 +3,6 @@ package com.mvk.pixman.ui.addimage
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.mvk.pixman.BR
 import com.mvk.pixman.R
@@ -11,7 +10,6 @@ import com.mvk.pixman.databinding.ActivityAddImageBinding
 import com.mvk.pixman.di.component.ActivityComponent
 import com.mvk.pixman.ui.base.BaseActivity
 import com.mvk.pixman.utils.common.Constants
-import com.mvk.pixman.utils.display.Toaster
 import com.mvk.pixman.utils.log.Logger
 import java.io.FileNotFoundException
 
@@ -56,15 +54,18 @@ class AddImageActivity : BaseActivity<ActivityAddImageBinding, ImageViewModel>()
                 .run { startActivityForResult(this, Constants.RESULT_GALLERY_IMAGE) }
         })
 
-        viewModel.selectImage.observe(this, Observer {
-            Toaster.show(this, "Success")
+        viewModel.launchEditImage.observe(this, Observer {
+            it.getIfNotHandled()?.run {
+                (this@AddImageActivity as BaseActivity<*, *>)
+                    .navigationController.launchEditImageActivity()
+            }
         })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            when(requestCode) {
+            when (requestCode) {
                 Constants.RESULT_GALLERY_IMAGE -> {
                     try {
                         data?.data?.let {

@@ -1,6 +1,8 @@
 package com.mvk.pixman.utils.navigation
 
 import android.content.Context
+import android.content.Intent
+import com.mvk.pixman.ui.editimage.EditImageActivity
 import javax.inject.Inject
 
 class NavigationController @Inject constructor(
@@ -10,9 +12,9 @@ class NavigationController @Inject constructor(
     /**
      * Launch MainActivity
      */
-    fun launchMainActivity() {
-//        val intent =
-//            Intent(context, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//        (context).startActivity(intent)
+    fun launchEditImageActivity() {
+        val intent = Intent(context, EditImageActivity::class.java)
+            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        (context).startActivity(intent)
     }
 }

@@ -10,7 +10,10 @@ class ImageViewModel : BaseViewModel() {
 
     lateinit var imageInputString: InputStream
     val addImageClick = MutableLiveData<Event<Map<String, String>>>()
-    val selectImage = MutableLiveData<Event<Boolean>>()
+
+    // Event is used by the view model to tell the activity to launch another Activity
+    // view model also provided the Bundle in the event that is needed for the Activity
+    val launchEditImage: MutableLiveData<Event<Map<String, String>>> = MutableLiveData()
 
     override fun onCreate() {
 
@@ -18,7 +21,7 @@ class ImageViewModel : BaseViewModel() {
 
     fun onGalleryImageSelected(inputStream: InputStream) {
         imageInputString = inputStream
-        selectImage.postValue(Event(true))
+        launchEditImage.postValue(Event(emptyMap()))
     }
 
     fun onAddClick(view: View) {
