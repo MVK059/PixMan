@@ -26,6 +26,27 @@ class ImageViewModel : BaseViewModel() {
 
     fun onAddClick(view: View) {
         addImageClick.postValue(Event(emptyMap()))
+    }
+
+    fun onFlipHorizontalClick(view: View) {
 
     }
+
+    fun onFlipVerticalClick(view: View) {
+
+    }
+
+    fun onSetOpacityClick(view: View) {
+
+    }
+
+    fun onAddTextClick(view: View) {
+
+    }
+
+    fun onSaveImageClick(view: View) {
+
+    }
+
+
 }

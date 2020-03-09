@@ -5,4 +5,13 @@
     <string name="add_image_open_text">Tap to open a photo</string>
     <string name="add_image_cont_desc">Add image</string>
     <string name="add_image_try_again">Please try again</string>
+
+    <!--    Edit Image -->
+    <string name="edit_image_cont_desc">Edit image</string>
+    <string name="edit_image_flip_horizontally">Flip\nHorizontally</string>
+    <string name="edit_image_flip_vertically">Flip\nVertically</string>
+    <string name="edit_image_set_opacity">Set\nOpacity</string>
+    <string name="edit_image_add_text">Add Text\n\'Greedy Game\'</string>
+    <string name="edit_image_save_image">Save\nImage</string>
+
 </resources>
