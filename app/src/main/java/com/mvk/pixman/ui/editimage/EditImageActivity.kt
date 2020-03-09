@@ -1,6 +1,5 @@
 package com.mvk.pixman.ui.editimage
 
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import com.mvk.pixman.BR
@@ -54,8 +53,13 @@ class EditImageActivity : BaseActivity<ActivityEditImageBinding, EditImageViewMo
         val intentImageUri = intent.getStringExtra(Constants.BUNDLE_EXTRA)
         val imageUri = Uri.parse(intentImageUri)
         dataBinding.editImageMainIV.setImageURI(imageUri)
+        setProperties(imageUri)
+    }
+
+    private fun setProperties(imageUri: Uri) {
         viewModel.mainImageView = dataBinding.editImageMainIV
         viewModel.setImageBitmap(imageUri, contentResolver)
+        viewModel.imageViewLayout = dataBinding.editImageLayout
     }
 
 }

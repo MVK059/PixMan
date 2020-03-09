@@ -3,20 +3,23 @@ package com.mvk.pixman.ui.editimage
 import android.content.ContentResolver
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Matrix
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
-import android.widget.Toast
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
+import com.mvk.pixman.R
 import com.mvk.pixman.ui.base.BaseViewModel
-import com.mvk.pixman.utils.common.Constants
-import com.mvk.pixman.utils.display.Toaster
 
 
 class EditImageViewModel : BaseViewModel() {
 
     lateinit var imageBitmap: Bitmap
     lateinit var mainImageView: ImageView
+    lateinit var imageViewLayout: ConstraintLayout
 
     override fun onCreate() {
 
@@ -26,7 +29,6 @@ class EditImageViewModel : BaseViewModel() {
         contentResolver.openInputStream(imageUri)?.run {
             imageBitmap = BitmapFactory.decodeStream(this)
         }
-        Toaster.show(mainImageView.context, "${mainImageView.rotationX} ${mainImageView.rotationY}")
     }
 
     fun onFlipHorizontalClick(view: View) {
@@ -34,7 +36,6 @@ class EditImageViewModel : BaseViewModel() {
             mainImageView.rotationY = 180f
         else
             mainImageView.rotationY = 0f
-        Toaster.show(mainImageView.context, "${mainImageView.rotationX} ${mainImageView.rotationY}")
     }
 
     fun onFlipVerticalClick(view: View) {
@@ -42,7 +43,6 @@ class EditImageViewModel : BaseViewModel() {
             mainImageView.rotationX = 180f
         else
             mainImageView.rotationX = 0f
-        Toaster.show(mainImageView.context, "${mainImageView.rotationX} ${mainImageView.rotationY}")
     }
 
     fun onSetOpacityClick(view: View) {
@@ -50,7 +50,24 @@ class EditImageViewModel : BaseViewModel() {
     }
 
     fun onAddTextClick(view: View) {
+        val set = ConstraintSet()
+        val textView = TextView(mainImageView.context)
+        textView.id = View.generateViewId()
+        textView.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        textView.text = mainImageView.context.getString(R.string.edit_image_greedy_game)
+        textView.setTextColor(ContextCompat.getColor(mainImageView.context, R.color.green))
+        textView.setBackgroundColor(ContextCompat.getColor(mainImageView.context, R.color.black))
+        imageViewLayout.addView(textView)
 
+        set.clone(imageViewLayout)
+        set.connect(textView.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
+        set.connect(textView.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
+        set.connect(textView.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
+        set.connect(textView.id, ConstraintSet.BOTTOM, mainImageView.id, ConstraintSet.BOTTOM)
+        set.applyTo(imageViewLayout)
     }
 
     fun onSaveImageClick(view: View) {

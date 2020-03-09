@@ -13,5 +13,6 @@
     <string name="edit_image_set_opacity">Set\nOpacity</string>
     <string name="edit_image_add_text">Add Text\n\'Greedy Game\'</string>
     <string name="edit_image_save_image">Save\nImage</string>
+    <string name="edit_image_greedy_game">GreedyGame</string>
 
 </resources>
