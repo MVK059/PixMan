@@ -12,8 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.editimage.EditImageActivity"></activity>
-        <activity android:name=".ui.addimage.AddImageActivity">
+        <activity
+            android:name=".ui.editimage.EditImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.addimage.AddImageActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

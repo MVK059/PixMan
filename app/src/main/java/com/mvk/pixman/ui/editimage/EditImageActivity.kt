@@ -1,5 +1,6 @@
 package com.mvk.pixman.ui.editimage
 
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import com.mvk.pixman.BR
@@ -37,9 +38,7 @@ class EditImageActivity : BaseActivity<ActivityEditImageBinding, EditImageViewMo
      * Setup view for the activity
      */
     override fun setupView(savedInstanceState: Bundle?) {
-        val intentImageUri = intent.getStringExtra(Constants.BUNDLE_EXTRA)
-        val imageUri = Uri.parse(intentImageUri)
-        dataBinding.editImageMainIV.setImageURI(imageUri)
+        setupImage()
     }
 
     override fun setupObservers() {
@@ -49,6 +48,14 @@ class EditImageActivity : BaseActivity<ActivityEditImageBinding, EditImageViewMo
     override fun onBackPressed() {
         super.onBackPressed()
         // TODO Show popup
+    }
+
+    private fun setupImage() {
+        val intentImageUri = intent.getStringExtra(Constants.BUNDLE_EXTRA)
+        val imageUri = Uri.parse(intentImageUri)
+        dataBinding.editImageMainIV.setImageURI(imageUri)
+        viewModel.mainImageView = dataBinding.editImageMainIV
+        viewModel.setImageBitmap(imageUri, contentResolver)
     }
 
 }

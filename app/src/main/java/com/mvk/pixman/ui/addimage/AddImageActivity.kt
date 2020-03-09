@@ -70,9 +70,7 @@ class AddImageActivity : BaseActivity<ActivityAddImageBinding, AddImageViewModel
                 Constants.RESULT_GALLERY_IMAGE -> {
                     try {
                         data?.data?.let {
-                            contentResolver?.openInputStream(it)?.run {
-                                viewModel.onGalleryImageSelected(it)
-                            }
+                            viewModel.onGalleryImageSelected(it)
                         } ?: showMessage(R.string.add_image_try_again)
                     } catch (e: FileNotFoundException) {
                         Logger.e(Constants.ADD_IMAGE_ACTIVITY_TAG, e.printStackTrace().toString())
